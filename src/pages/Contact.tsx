@@ -1,11 +1,12 @@
 import React from 'react';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { Navbar } from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const Contact: React.FC = () => {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col min-h-screen">
         <Navbar />
         <section className="py-20 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-2xl mx-auto px-4 text-center">
@@ -18,6 +19,7 @@ const Contact: React.FC = () => {
             {/* Add contact form or details here */}
           </div>
         </section>
+        <Footer />
       </div>
     </ThemeProvider>
   );

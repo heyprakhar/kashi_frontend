@@ -3,11 +3,12 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { Navbar } from '@/components/Navbar';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
+import Footer from '@/components/Footer';
 
 const ForDoctors: React.FC = () => {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col min-h-screen">
         <Navbar />
         <section className="py-20 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-2xl mx-auto px-4 text-center">
@@ -15,7 +16,7 @@ const ForDoctors: React.FC = () => {
               For Doctors
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Join KASHI to reach more patients, manage appointments efficiently, and grow your practice with our secure, user-friendly platform. Enjoy features like real-time booking, patient management, and access to a large patient base.
+              Join Kaashvi to reach more patients, manage appointments efficiently, and grow your practice with our secure, user-friendly platform. Enjoy features like real-time booking, patient management, and access to a large patient base.
             </p>
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <Card className="shadow-lg border-0">
@@ -45,11 +46,12 @@ const ForDoctors: React.FC = () => {
             </div>
             <Link to="/signup/doctor">
               <button className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3 rounded-lg text-lg shadow-md transition-colors">
-                Join KASHI as a Doctor
+                Join Kaashvi as a Doctor
               </button>
             </Link>
           </div>
         </section>
+        <Footer />
       </div>
     </ThemeProvider>
   );

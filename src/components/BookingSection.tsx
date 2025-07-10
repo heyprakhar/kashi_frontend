@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 const doctors = [
   {
@@ -52,14 +53,10 @@ export const BookingSection: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const handleBookAppointment = () => {
-    // Placeholder booking number, to be replaced with backend integration
-    const bookingNumber = Math.floor(Math.random() * 10000) + 1;
-    toast({
-      title: 'Booking Confirmed',
-      description: `Your current details is - Booking Number: ${bookingNumber}`,
-    });
+    navigate('/booking');
   };
 
   return (
@@ -85,14 +82,16 @@ export const BookingSection: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-2">
-                {Array.from({ length: 7 }, (_, i) => {
+                {[0, 1].map((i) => {
                   const date = new Date();
                   date.setDate(date.getDate() + i);
                   const dateStr = date.toISOString().split('T')[0];
                   const displayDate = date.toLocaleDateString('en-US', {
                     month: 'short',
-                    day: 'numeric'
+                    day: 'numeric',
+                    year: 'numeric'
                   });
+                  const label = i === 0 ? `${displayDate} (Today)` : `${displayDate} (Tomorrow)`;
                   return (
                     <Button
                       key={dateStr}
@@ -101,7 +100,7 @@ export const BookingSection: React.FC = () => {
                       onClick={() => setSelectedDate(dateStr)}
                       className={selectedDate === dateStr ? 'bg-teal-600 hover:bg-teal-700' : ''}
                     >
-                      {displayDate}
+                      {label}
                     </Button>
                   );
                 })}

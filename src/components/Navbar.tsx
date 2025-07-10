@@ -1,15 +1,19 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Stethoscope } from 'lucide-react';
+import { Menu, X, Stethoscope, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DarkModeToggle } from './DarkModeToggle';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { Link } from 'react-router-dom';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Input } from '@/components/ui/input';
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -17,6 +21,16 @@ export const Navbar: React.FC = () => {
     { key: 'forDoctors', href: '#doctors' },
     { key: 'contact', href: '#contact' }
   ];
+
+  const doctorSuggestions = [
+    { name: 'Dr. Priya Sharma', specialty: 'Dermatology' },
+    { name: 'Dr. Arjun Mehra', specialty: 'Ophthalmology' }
+  ];
+
+  const filteredSuggestions = doctorSuggestions.filter(doc =>
+    doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    doc.specialty.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50">
@@ -27,7 +41,7 @@ export const Navbar: React.FC = () => {
             <Stethoscope className="h-8 w-8 text-teal-600" />
             <Link to="/">
               <span className="text-2xl font-extrabold tracking-widest text-teal-700 dark:text-teal-300" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                KASHI
+                Kaashvi
               </span>
             </Link>
           </div>
@@ -46,6 +60,36 @@ export const Navbar: React.FC = () => {
             <Link to="/contact" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
               {t('nav.contact')}
             </Link>
+            {/* Search Button */}
+            <Popover open={searchOpen} onOpenChange={setSearchOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Search" className="ml-2">
+                  <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-72">
+                <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
+                <Input
+                  placeholder={t('booking.searchPlaceholder')}
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="mb-3"
+                  autoFocus
+                />
+                <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                  {filteredSuggestions.length > 0 ? (
+                    filteredSuggestions.map((doc, idx) => (
+                      <li key={idx} className="py-2 flex flex-col">
+                        <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
+                  )}
+                </ul>
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Controls */}

@@ -50,7 +50,22 @@ const resources = {
         selectDoctor: 'Choose Your Doctor',
         bookNow: 'Book Now',
         available: 'Available',
-        unavailable: 'Unavailable'
+        unavailable: 'Unavailable',
+        instructionsTitle: 'How to Book an Appointment',
+        step1Title: 'Step 1: Choose State',
+        step1Desc: 'Select your state from the list to begin the booking process.',
+        step2Title: 'Step 2: Choose District',
+        step2Desc: 'Pick your district to narrow down the available doctors.',
+        step3Title: 'Step 3: Choose Doctor',
+        step3Desc: 'Browse and select a doctor from the available options.',
+        step4Title: 'Step 4: Make Payment',
+        step4Desc: 'Pay using any of the provided payment methods to confirm your appointment.',
+        step5Title: 'Step 5: Confirmation & Notifications',
+        step5Desc: 'Your appointment will be booked. You will receive a confirmation via email and SMS. It will also be displayed on the website.',
+        continue: 'Continue',
+        searchDoctors: 'Search Doctors',
+        searchPlaceholder: 'Type doctor or specialty...',
+        noResults: 'No results found.'
       }
     }
   },
@@ -100,7 +115,22 @@ const resources = {
         selectDoctor: 'अपना डॉक्टर चुनें',
         bookNow: 'अभी बुक करें',
         available: 'उपलब्ध',
-        unavailable: 'अनुपलब्ध'
+        unavailable: 'अनुपलब्ध',
+        instructionsTitle: 'अपॉइंटमेंट बुक करने के चरण',
+        step1Title: 'चरण 1: राज्य चुनें',
+        step1Desc: 'बुकिंग प्रक्रिया शुरू करने के लिए अपनी राज्य चुनें।',
+        step2Title: 'चरण 2: जिला चुनें',
+        step2Desc: 'उपलब्ध डॉक्टरों को सीमित करने के लिए अपना जिला चुनें।',
+        step3Title: 'चरण 3: डॉक्टर चुनें',
+        step3Desc: 'उपलब्ध विकल्पों में से डॉक्टर चुनें।',
+        step4Title: 'चरण 4: भुगतान करें',
+        step4Desc: 'अपॉइंटमेंट की पुष्टि के लिए किसी भी दिए गए भुगतान विधि का उपयोग करें।',
+        step5Title: 'चरण 5: पुष्टि और सूचनाएँ',
+        step5Desc: 'आपका अपॉइंटमेंट बुक हो जाएगा। आपको ईमेल और एसएमएस के माध्यम से पुष्टि प्राप्त होगी। वेबसाइट पर भी दिखाई देगा।',
+        continue: 'आगे बढ़ें',
+        searchDoctors: 'डॉक्टर खोजें',
+        searchPlaceholder: 'डॉक्टर या विशेषज्ञता टाइप करें...',
+        noResults: 'कोई परिणाम नहीं मिला।'
       }
     }
   }

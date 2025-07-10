@@ -1,4 +1,4 @@
-# KASHI Project
+# Kaashvi Project
 
 ## Project info
 
