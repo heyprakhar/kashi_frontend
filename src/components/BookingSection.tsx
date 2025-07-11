@@ -110,31 +110,6 @@ export const BookingSection: React.FC = () => {
             </CardContent>
           </Card>
 
-          {/* Time Selection */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Clock className="mr-2 h-5 w-5 text-teal-600" />
-                {t('booking.selectTime')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-2">
-                {timeSlots.map((time) => (
-                  <Button
-                    key={time}
-                    variant={selectedTime === time ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedTime(time)}
-                    className={selectedTime === time ? 'bg-teal-600 hover:bg-teal-700' : ''}
-                  >
-                    {time}
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Doctor Selection */}
           <Card>
             <CardHeader>
@@ -190,7 +165,7 @@ export const BookingSection: React.FC = () => {
           <Button
             size="lg"
             className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3"
-            disabled={!selectedDate || !selectedTime || !selectedDoctor}
+            disabled={!selectedDate || !selectedDoctor}
             onClick={handleBookAppointment}
           >
             {t('booking.bookNow')}
