@@ -15,6 +15,8 @@ export const Navbar: React.FC = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const searchInputRef = React.useRef<HTMLInputElement>(null);
+  // Track if popover should stay open due to input focus
+  const [searchPopoverForceOpen, setSearchPopoverForceOpen] = useState(false);
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -34,7 +36,7 @@ export const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50 pt-4 md:pt-0">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50 pt-[env(safe-area-inset-top,2.5rem)] md:pt-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Mobile Search Button Row */}
@@ -49,9 +51,8 @@ export const Navbar: React.FC = () => {
             </div>
             {/* Mobile Search Button with extra space */}
             <div className="md:hidden ml-6 flex-shrink-0">
-              <Popover open={searchOpen} onOpenChange={(open) => {
-                // Only close if not focusing input
-                if (!open && document.activeElement === searchInputRef.current) return;
+              <Popover open={searchOpen || searchPopoverForceOpen} onOpenChange={(open) => {
+                if (!open && searchPopoverForceOpen) return;
                 setSearchOpen(open);
               }}>
                 <PopoverTrigger asChild>
@@ -70,6 +71,8 @@ export const Navbar: React.FC = () => {
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
                     className="mb-3"
+                    onFocus={() => setSearchPopoverForceOpen(true)}
+                    onBlur={() => setTimeout(() => setSearchPopoverForceOpen(false), 150)}
                   />
                   <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                     {filteredSuggestions.length > 0 ? (
