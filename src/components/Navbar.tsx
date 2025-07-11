@@ -60,7 +60,7 @@ export const Navbar: React.FC = () => {
             <Link to="/contact" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
               {t('nav.contact')}
             </Link>
-            {/* Search Button */}
+            {/* Search Button (Desktop) */}
             <Popover open={searchOpen} onOpenChange={setSearchOpen}>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Search" className="ml-2">
@@ -94,6 +94,38 @@ export const Navbar: React.FC = () => {
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
+            {/* Mobile Search Button */}
+            <div className="md:hidden">
+              <Popover open={searchOpen} onOpenChange={setSearchOpen}>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Search" className="mr-2">
+                    <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-72">
+                  <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
+                  <Input
+                    placeholder={t('booking.searchPlaceholder')}
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="mb-3"
+                    autoFocus
+                  />
+                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {filteredSuggestions.length > 0 ? (
+                      filteredSuggestions.map((doc, idx) => (
+                        <li key={idx} className="py-2 flex flex-col">
+                          <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
+                    )}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            </div>
             <LanguageSwitcher />
             <DarkModeToggle />
             
