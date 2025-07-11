@@ -38,13 +38,13 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50 pt-[env(safe-area-inset-top,2.5rem)] md:pt-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 flex-wrap md:flex-nowrap">
           {/* Logo and Mobile Search Button Row */}
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-center min-w-0 flex-shrink-1 flex-grow md:w-auto">
+            <div className="flex items-center space-x-2 min-w-0">
               <Stethoscope className="h-8 w-8 text-teal-600" />
               <Link to="/">
-                <span className="text-2xl font-extrabold tracking-widest text-teal-700 dark:text-teal-300" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                <span className="text-2xl font-extrabold tracking-widest text-teal-700 dark:text-teal-300 truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
                   Kaashvi
                 </span>
               </Link>
@@ -138,8 +138,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center space-x-4">
-            {/* Remove mobile search button from here, now in logo row */}
+          <div className="flex items-center space-x-2 flex-shrink-0">
             <LanguageSwitcher />
             <DarkModeToggle />
             
