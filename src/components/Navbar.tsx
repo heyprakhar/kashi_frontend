@@ -14,6 +14,7 @@ export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -33,17 +34,58 @@ export const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50 pt-4 md:pt-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <Stethoscope className="h-8 w-8 text-teal-600" />
-            <Link to="/">
-              <span className="text-2xl font-extrabold tracking-widest text-teal-700 dark:text-teal-300" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Kaashvi
-              </span>
-            </Link>
+          {/* Logo and Mobile Search Button Row */}
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <div className="flex items-center space-x-2">
+              <Stethoscope className="h-8 w-8 text-teal-600" />
+              <Link to="/">
+                <span className="text-2xl font-extrabold tracking-widest text-teal-700 dark:text-teal-300" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  Kaashvi
+                </span>
+              </Link>
+            </div>
+            {/* Mobile Search Button with extra space */}
+            <div className="md:hidden ml-6 flex-shrink-0">
+              <Popover open={searchOpen} onOpenChange={(open) => {
+                // Only close if not focusing input
+                if (!open && document.activeElement === searchInputRef.current) return;
+                setSearchOpen(open);
+              }}>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Search">
+                    <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-72" onOpenAutoFocus={e => {
+                  e.preventDefault();
+                  setTimeout(() => searchInputRef.current?.focus(), 0);
+                }}>
+                  <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
+                  <Input
+                    ref={searchInputRef}
+                    placeholder={t('booking.searchPlaceholder')}
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="mb-3"
+                  />
+                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {filteredSuggestions.length > 0 ? (
+                      filteredSuggestions.map((doc, idx) => (
+                        <li key={idx} className="py-2 flex flex-col">
+                          <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
+                    )}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -94,38 +136,7 @@ export const Navbar: React.FC = () => {
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
-            {/* Mobile Search Button */}
-            <div className="md:hidden">
-              <Popover open={searchOpen} onOpenChange={setSearchOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Search" className="mr-2">
-                    <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="start" className="w-72">
-                  <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
-                  <Input
-                    placeholder={t('booking.searchPlaceholder')}
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="mb-3"
-                    autoFocus
-                  />
-                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {filteredSuggestions.length > 0 ? (
-                      filteredSuggestions.map((doc, idx) => (
-                        <li key={idx} className="py-2 flex flex-col">
-                          <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
-                    )}
-                  </ul>
-                </PopoverContent>
-              </Popover>
-            </div>
+            {/* Remove mobile search button from here, now in logo row */}
             <LanguageSwitcher />
             <DarkModeToggle />
             
