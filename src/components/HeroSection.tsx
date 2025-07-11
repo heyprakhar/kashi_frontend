@@ -1,12 +1,14 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import BookingStepper from './BookingStepper';
 
 export const HeroSection: React.FC = () => {
   const { t } = useTranslation();
+  const [bookingDoctor, setBookingDoctor] = useState<string | null>(null);
 
   return (
     <section id="home" className="bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-900 dark:to-teal-900 py-20">
@@ -67,20 +69,32 @@ export const HeroSection: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-teal-50 dark:bg-teal-900 rounded-lg">
+                <button
+                  className="flex items-center justify-between w-full p-3 bg-teal-50 dark:bg-teal-900 rounded-lg text-left hover:bg-teal-100 dark:hover:bg-teal-800 transition"
+                  onClick={() => setBookingDoctor('Dr. Sarah Johnson')}
+                >
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Dr. Sarah Johnson</span>
                   <span className="text-xs text-teal-600 dark:text-teal-400">Available</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-teal-50 dark:bg-teal-900 rounded-lg">
+                </button>
+                <button
+                  className="flex items-center justify-between w-full p-3 bg-teal-50 dark:bg-teal-900 rounded-lg text-left hover:bg-teal-100 dark:hover:bg-teal-800 transition"
+                  onClick={() => setBookingDoctor('Dr. Michael Chen')}
+                >
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Dr. Michael Chen</span>
                   <span className="text-xs text-teal-600 dark:text-teal-400">Available</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                </button>
+                <button
+                  className="flex items-center justify-between w-full p-3 bg-gray-50 dark:bg-gray-700 rounded-lg text-left cursor-not-allowed opacity-60"
+                  disabled
+                >
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Dr. Emily Davis</span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">Busy</span>
-                </div>
+                </button>
               </div>
             </div>
+            {bookingDoctor && (
+              <BookingStepper doctorName={bookingDoctor} onClose={() => setBookingDoctor(null)} />
+            )}
           </div>
         </div>
       </div>

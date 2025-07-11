@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import BookingStepper from './BookingStepper';
 
 const doctors = [
   {
@@ -53,6 +54,7 @@ export const BookingSection: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState<number | null>(null);
+  const [bookingDoctor, setBookingDoctor] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleBookAppointment = () => {
@@ -151,7 +153,7 @@ export const BookingSection: React.FC = () => {
                         ? 'border-teal-500 bg-teal-50 dark:bg-teal-900'
                         : 'border-gray-200 dark:border-gray-700 hover:border-teal-300'
                     } ${!doctor.available ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => doctor.available && setSelectedDoctor(doctor.id)}
+                    onClick={() => doctor.available && setBookingDoctor(doctor.name)}
                   >
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-10 w-10">
@@ -195,6 +197,9 @@ export const BookingSection: React.FC = () => {
           </Button>
         </div>
       </div>
+      {bookingDoctor && (
+        <BookingStepper doctorName={bookingDoctor} onClose={() => setBookingDoctor(null)} />
+      )}
     </section>
   );
 };

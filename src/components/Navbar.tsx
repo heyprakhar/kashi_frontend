@@ -8,6 +8,7 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { Link } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
+import BookingStepper from './BookingStepper';
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export const Navbar: React.FC = () => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   // Track if popover should stay open due to input focus
   const [searchPopoverForceOpen, setSearchPopoverForceOpen] = useState(false);
+  const [bookingDoctor, setBookingDoctor] = useState<string | null>(null);
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -77,7 +79,7 @@ export const Navbar: React.FC = () => {
                   <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                     {filteredSuggestions.length > 0 ? (
                       filteredSuggestions.map((doc, idx) => (
-                        <li key={idx} className="py-2 flex flex-col">
+                        <li key={idx} className="py-2 flex flex-col cursor-pointer hover:bg-teal-50 dark:hover:bg-teal-900 rounded px-2" onClick={() => setBookingDoctor(doc.name)}>
                           <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
                           <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
                         </li>
@@ -93,6 +95,46 @@ export const Navbar: React.FC = () => {
 
           {/* Controls */}
           <div className="flex items-center space-x-2 flex-shrink-0">
+            {/* Desktop Search Button */}
+            <div className="hidden md:flex">
+              <Popover open={searchOpen || searchPopoverForceOpen} onOpenChange={(open) => {
+                if (!open && searchPopoverForceOpen) return;
+                setSearchOpen(open);
+              }}>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Search">
+                    <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-72" onOpenAutoFocus={e => {
+                  e.preventDefault();
+                  setTimeout(() => searchInputRef.current?.focus(), 0);
+                }}>
+                  <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
+                  <Input
+                    ref={searchInputRef}
+                    placeholder={t('booking.searchPlaceholder')}
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="mb-3"
+                    onFocus={() => setSearchPopoverForceOpen(true)}
+                    onBlur={() => setTimeout(() => setSearchPopoverForceOpen(false), 150)}
+                  />
+                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {filteredSuggestions.length > 0 ? (
+                      filteredSuggestions.map((doc, idx) => (
+                        <li key={idx} className="py-2 flex flex-col cursor-pointer hover:bg-teal-50 dark:hover:bg-teal-900 rounded px-2" onClick={() => setBookingDoctor(doc.name)}>
+                          <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
+                    )}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            </div>
             <LanguageSwitcher />
             <DarkModeToggle />
             <Button
@@ -138,6 +180,9 @@ export const Navbar: React.FC = () => {
           </div>
         )}
       </div>
+      {bookingDoctor && (
+        <BookingStepper doctorName={bookingDoctor} onClose={() => setBookingDoctor(null)} />
+      )}
     </nav>
   );
 };
