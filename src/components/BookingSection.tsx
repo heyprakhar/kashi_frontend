@@ -62,18 +62,17 @@ export const BookingSection: React.FC = () => {
   };
 
   return (
-    <section id="booking" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="booking" className="py-12 md:py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
             {t('booking.title')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Choose your preferred date, time, and doctor
+          <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300">
+            Choose your preferred date and doctor
           </p>
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Date Selection */}
           <Card>
             <CardHeader>
@@ -159,12 +158,11 @@ export const BookingSection: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-
         {/* Book Button */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-6 md:mt-8">
           <Button
             size="lg"
-            className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3"
+            className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 w-full sm:w-auto"
             disabled={!selectedDate || !selectedDoctor}
             onClick={handleBookAppointment}
           >

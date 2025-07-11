@@ -16,12 +16,12 @@ const BookingStepper: React.FC<BookingStepperProps> = ({ doctorName, onClose }) 
   const expectedTime = '10:30 AM';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-      <div className="max-w-md w-full mx-auto px-4">
-        <Card className="shadow-2xl relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 px-2 py-4 overflow-y-auto">
+      <div className="max-w-md w-full mx-auto">
+        <Card className="shadow-2xl relative w-full">
           <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl w-10 h-10 flex items-center justify-center" onClick={onClose}>&times;</button>
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white text-center mb-2">
+            <CardTitle className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white text-center mb-2">
               Book Appointment
             </CardTitle>
           </CardHeader>
