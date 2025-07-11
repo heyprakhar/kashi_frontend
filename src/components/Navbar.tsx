@@ -101,7 +101,7 @@ export const Navbar: React.FC = () => {
                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                   {filteredSuggestions.length > 0 ? (
                     filteredSuggestions.map((doc, idx) => (
-                      <li key={idx} className="py-2 flex flex-col cursor-pointer hover:bg-teal-50 dark:hover:bg-teal-900 rounded px-2" onClick={() => setBookingDoctor(doc.name)}>
+                      <li key={idx} className="py-2 flex flex-col cursor-pointer hover:bg-teal-50 dark:hover:bg-teal-900 rounded px-2" onClick={() => { setBookingDoctor(doc.name); setSearchOpen(false); setSearchPopoverForceOpen(false); }}>
                         <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
                         <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
                       </li>
