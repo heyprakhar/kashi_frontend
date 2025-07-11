@@ -1,55 +1,40 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Globe } from 'lucide-react';
-
-const languages = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'hi', name: 'हिंदी', flag: '🇮🇳' }
-];
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
+  const currentLang = i18n.language === 'hi' ? 'hi' : 'en';
 
-  const changeLanguage = (langCode: string) => {
-    i18n.changeLanguage(langCode);
+  const handleChange = (lang: string) => {
+    if (lang && lang !== currentLang) {
+      i18n.changeLanguage(lang);
+    }
   };
 
-  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-9 px-3 transition-colors hover:bg-teal-100 dark:hover:bg-teal-900"
-        >
-          <Globe className="h-4 w-4 mr-2 text-teal-700 dark:text-teal-300" />
-          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">
-            {currentLanguage.flag}
-          </span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        {languages.map((language) => (
-          <DropdownMenuItem
-            key={language.code}
-            onClick={() => changeLanguage(language.code)}
-            className="cursor-pointer"
-          >
-            <span className="mr-2">{language.flag}</span>
-            {language.name}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ToggleGroup
+      type="single"
+      value={currentLang}
+      onValueChange={handleChange}
+      className="bg-gray-100 dark:bg-gray-800 rounded-full p-1 border border-gray-200 dark:border-gray-700"
+      size="sm"
+    >
+      <ToggleGroupItem
+        value="en"
+        aria-label="Switch to English"
+        className="rounded-full px-4 py-1 text-xs font-bold data-[state=on]:bg-teal-600 data-[state=on]:text-white transition-colors"
+      >
+        EN
+      </ToggleGroupItem>
+      <ToggleGroupItem
+        value="hi"
+        aria-label="Switch to Hindi"
+        className="rounded-full px-4 py-1 text-xs font-bold data-[state=on]:bg-teal-600 data-[state=on]:text-white transition-colors font-[Noto Sans Devanagari],font-sans"
+      >
+        हिंदी
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 };
