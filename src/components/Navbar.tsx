@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-teal-100 dark:border-teal-800 sticky top-0 z-50 pt-[env(safe-area-inset-top,2.5rem)] md:pt-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 flex-wrap md:flex-nowrap">
+        <div className="flex justify-between items-center h-16 flex-nowrap overflow-x-auto">
           {/* Logo and Mobile Search Button Row */}
           <div className="flex items-center min-w-0 flex-shrink-1 flex-grow md:w-auto">
             <div className="flex items-center space-x-2 min-w-0">
@@ -91,71 +91,10 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
-              {t('nav.home')}
-            </Link>
-            <Link to="/booking" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
-              {t('nav.bookAppointment')}
-            </Link>
-            <Link to="/doctors" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
-              {t('nav.forDoctors')}
-            </Link>
-            <Link to="/contact" className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors">
-              {t('nav.contact')}
-            </Link>
-            {/* Search Button (Desktop) */}
-            <Popover open={searchOpen} onOpenChange={setSearchOpen}>
-              <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Search" className="ml-2">
-                  <Search className="h-5 w-5 text-teal-700 dark:text-teal-300" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent align="end" className="w-72">
-                <div className="mb-2 font-semibold text-gray-900 dark:text-white">{t('booking.searchDoctors')}</div>
-                <Input
-                  placeholder={t('booking.searchPlaceholder')}
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="mb-3"
-                  autoFocus
-                />
-                <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {filteredSuggestions.length > 0 ? (
-                    filteredSuggestions.map((doc, idx) => (
-                      <li key={idx} className="py-2 flex flex-col">
-                        <span className="font-medium text-teal-700 dark:text-teal-300">{doc.name}</span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">{doc.specialty}</span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="py-2 text-gray-500 dark:text-gray-400 text-sm">{t('booking.noResults')}</li>
-                  )}
-                </ul>
-              </PopoverContent>
-            </Popover>
-          </div>
-
           {/* Controls */}
           <div className="flex items-center space-x-2 flex-shrink-0">
             <LanguageSwitcher />
             <DarkModeToggle />
-            
-            <div className="hidden md:flex items-center space-x-2">
-              <Link to="/login">
-                <Button variant="ghost" size="sm" className="text-teal-700 dark:text-teal-300">
-                  {t('nav.login')}
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button size="sm" className="bg-teal-600 hover:bg-teal-700 text-white">
-                  {t('nav.signup')}
-                </Button>
-              </Link>
-            </div>
-
-            {/* Mobile menu button */}
             <Button
               variant="ghost"
               size="icon"
