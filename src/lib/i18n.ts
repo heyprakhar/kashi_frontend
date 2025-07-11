@@ -26,7 +26,9 @@ const resources = {
         verifiedDoctors: 'Verified Doctors',
         verifiedDoctorsDesc: 'All doctors are verified and licensed',
         securePlatform: 'Secure Platform',
-        securePlatformDesc: 'Your data is protected and secure'
+        securePlatformDesc: 'Your data is protected and secure',
+        sectionTitle: 'Why Choose Kaashvi?',
+        sectionSubtitle: 'Experience healthcare booking like never before with our comprehensive platform'
       },
       auth: {
         loginTitle: 'Welcome Back',
@@ -66,6 +68,14 @@ const resources = {
         searchDoctors: 'Search Doctors',
         searchPlaceholder: 'Type doctor or specialty...',
         noResults: 'No results found.'
+      },
+      footer: {
+        brand: 'Kaashvi',
+        copyright: 'All rights reserved.',
+        home: 'Home',
+        bookAppointment: 'Book Appointment',
+        forDoctors: 'For Doctors',
+        contact: 'Contact'
       }
     }
   },
@@ -91,7 +101,9 @@ const resources = {
         verifiedDoctors: 'सत्यापित डॉक्टर',
         verifiedDoctorsDesc: 'सभी डॉक्टर सत्यापित और लाइसेंसीकृत हैं',
         securePlatform: 'सुरक्षित प्लेटफॉर्म',
-        securePlatformDesc: 'आपका डेटा सुरक्षित और संरक्षित है'
+        securePlatformDesc: 'आपका डेटा सुरक्षित और संरक्षित है',
+        sectionTitle: 'काश्वी क्यों चुनें?',
+        sectionSubtitle: 'हमारे व्यापक प्लेटफ़ॉर्म के साथ पहले कभी न देखी गई स्वास्थ्य देखभाल बुकिंग का अनुभव करें'
       },
       auth: {
         loginTitle: 'वापसी पर स्वागत है',
@@ -131,6 +143,14 @@ const resources = {
         searchDoctors: 'डॉक्टर खोजें',
         searchPlaceholder: 'डॉक्टर या विशेषज्ञता टाइप करें...',
         noResults: 'कोई परिणाम नहीं मिला।'
+      },
+      footer: {
+        brand: 'KAASHVI',
+        copyright: 'सर्वाधिकार सुरक्षित।',
+        home: 'मुख्य पृष्ठ',
+        bookAppointment: 'अपॉइंटमेंट बुक करें',
+        forDoctors: 'डॉक्टरों के लिए',
+        contact: 'संपर्क'
       }
     }
   }
