@@ -110,8 +110,8 @@ export const Navbar: React.FC = () => {
                 </ul>
               </PopoverContent>
             </Popover>
+            <LanguageSwitcher />
             <DarkModeToggle />
-            <div className="hidden md:block"><LanguageSwitcher /></div>
             <Button
               variant="ghost"
               size="icon"
@@ -139,9 +139,6 @@ export const Navbar: React.FC = () => {
               <Link to="/contact" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900 rounded-md transition-colors" onClick={() => setIsMenuOpen(false)}>
                 {t('nav.contact')}
               </Link>
-              <div className="pt-4 pb-2 flex flex-col items-center">
-                <LanguageSwitcher />
-              </div>
               <div className="border-t border-teal-100 dark:border-teal-800 pt-4 flex flex-col space-y-2">
                 <Link to="/login">
                   <Button variant="ghost" size="sm" className="justify-start text-teal-700 dark:text-teal-300 w-full text-left">
